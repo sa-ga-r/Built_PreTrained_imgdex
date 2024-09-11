@@ -1,6 +1,6 @@
 import streamlit as st
 import torch
-import torchvision.models as models
+from torchvision import models
 import torchvision.transforms as transforms
 from PIL import Image
 
