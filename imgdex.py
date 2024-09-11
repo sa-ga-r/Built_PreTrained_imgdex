@@ -7,9 +7,6 @@ from PIL import Image
 model = models.resnet101(weights=models.ResNet101_Weights.IMAGENET1K_V2)
 model.eval()
 
-class_names = model.class_to_idx.keys()
-#class_names_idx = {index: class_name for index, class_name in enumerate(class_names)}
-
 transform = transforms.Compose([transforms.Resize(224), transforms.ToTensor(), transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
 def main():
@@ -21,6 +18,8 @@ def main():
         with torch.no_grad():
             output = model(image)
             _, pred = torch.max(output, 1)
+        
+        class_names = model.class_to_idx.keys()
         predicted_class = class_names[pred.item()]
         st.image(image.squeeze(0).permute(1, 2, 0))
         st.write("Detected :", predicted_class)
