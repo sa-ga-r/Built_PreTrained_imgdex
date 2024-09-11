@@ -4,10 +4,11 @@ import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
 
-model = models.resnet101(pretrained = True)
+model = models.resnet101(weights=models.ResNet101_Weights.IMAGENET1K_V2)
 model.eval()
 
 class_names = model.class_to_idx.keys()
+#class_names_idx = {index: class_name for index, class_name in enumerate(class_names)}
 
 transform = transforms.Compose([transforms.Resize(224), transforms.ToTensor(), transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
